@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "yukuri-42check"
+version = "0.1.0"
+description = "An original CLI test runner for 42 projects"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MPL-2.0"}
+dependencies = []
+
+[project.scripts]
+42check = "yukuri.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
