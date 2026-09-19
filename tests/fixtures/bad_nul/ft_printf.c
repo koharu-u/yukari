@@ -12,7 +12,7 @@ int ft_printf(const char *format, ...)
     {
         (void)va_arg(arguments, int);
         fputs("AB", stdout);
-        result = 3;
+        result = 2;
     }
     else
         result = vprintf(format, arguments);

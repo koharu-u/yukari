@@ -3,7 +3,7 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "yukuri-42check"
+name = "yukari-42-tester"
 version = "0.1.0"
 description = "An original CLI test runner for 42 projects"
 readme = "README.md"
@@ -12,6 +12,7 @@ license = {text = "MPL-2.0"}
 dependencies = []
 
 [project.scripts]
+yukari = "yukuri.cli:main"
 42check = "yukuri.cli:main"
 
 [tool.setuptools]

@@ -22,20 +22,18 @@ class BuildResult:
 class BuildWorkspace:
     def __init__(self, keep: bool):
         self.keep = keep
-        self._temp: tempfile.TemporaryDirectory[str] | None = None
         self.root: Path | None = None
 
     def __enter__(self) -> "BuildWorkspace":
-        if self.keep:
-            self.root = Path(tempfile.mkdtemp(prefix="42check-"))
-        else:
-            self._temp = tempfile.TemporaryDirectory(prefix="42check-")
-            self.root = Path(self._temp.name)
+        self.root = Path(tempfile.mkdtemp(prefix="yukari-"))
         return self
 
     def __exit__(self, exc_type, exc, tb) -> None:
-        if self._temp is not None:
-            self._temp.cleanup()
+        if not self.keep and self.root is not None:
+            shutil.rmtree(self.root, ignore_errors=True)
+
+    def preserve(self) -> None:
+        self.keep = True
 
 
 def prepare_project(
@@ -95,6 +93,6 @@ def compile_harness(
     if archive is not None:
         argv.append(str(archive))
     argv.extend([
-        "-o", str(output),
+        "-o", str(output), "-ldl",
     ])
     return run_process(Invocation(argv, cwd, timeout, max_output, os.environ.copy()))
